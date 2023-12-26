@@ -1,3 +1,5 @@
+import { Project } from "./constructor";
+
 const content = document.getElementById("content");
 const projectNameForm = document.getElementById("projectName");
 const subButton = document.getElementById("submit");
@@ -5,56 +7,72 @@ const subButton = document.getElementById("submit");
 let allProjects = [];
 
 
-class Project {
-    constructor(projectName){
-        this.projectName = projectName;
-        this.task = {}
-    }
-
-    addTask(newTask){
-        this.task = newTask;
-    }
-}
-
-class Task {
-    constructor(priority){
-        this.priority = priority;
-    }
-}
-
-
 subButton.addEventListener("click", ()=>{
+
     const projectNameDiv = document.createElement("div");
     projectNameDiv.setAttribute("id", "projectNameDiv");
-
     const theNameIs = projectNameForm.value;
-    console.log(theNameIs);
     let createNewProject = new Project(theNameIs);
     allProjects.push(createNewProject);
     projectNameDiv.innerHTML = theNameIs;
 
-    const addTask = document.createElement("input");
-    addTask.setAttribute("type", "text");
-    addTask.setAttribute("name", "setProperty");
-    addTask.setAttribute("id", "setProperty");
+    const addTaskForm = document.createElement("input");
+    addTaskForm.setAttribute("type", "text");
+    addTaskForm.setAttribute("name", "setProperty");
+    addTaskForm.setAttribute("id", "setProperty");
+
     const addLabel = document.createElement("label");
     addLabel.setAttribute("for", "setProperty");
     addLabel.innerHTML = "Add Task";
-    const addButton = document.createElement("button");
+
+    const addPrioForm = document.createElement("select");  
+    addPrioForm.setAttribute("name", "setPrio");
+    addPrioForm.setAttribute("id", "setPrio");
+
+    const optionsHigh = document.createElement("option");
+    optionsHigh.setAttribute("value", "high");
+    const optionsTextHigh = document.createTextNode("High");
+
+    const optionsMed = document.createElement("option");
+    optionsMed.setAttribute("value", "medium");
+    const optionsTextMed = document.createTextNode("Medium");
+
+    const optionsLow = document.createElement("option");
+    optionsLow.setAttribute("value", "low");
+    const optionsTextLow = document.createTextNode("Low");
+
+
+
+    optionsHigh.appendChild(optionsTextHigh);
+    optionsMed.appendChild(optionsTextMed);
+    optionsLow.appendChild(optionsTextLow);
+    addPrioForm.appendChild(optionsHigh);
+    addPrioForm.appendChild(optionsMed);
+    addPrioForm.appendChild(optionsLow);
+
+    const addLabelPrio = document.createElement("label");
+    addLabelPrio.setAttribute("for", "setPrio");
+    addLabelPrio.innerHTML = "Add Priority";
+
+   const addButton = document.createElement("button");
     addButton.innerHTML = "add"
+    
 
      addButton.addEventListener("click", ()=>{
-         const taskValue = addTask.value;
-         console.log(taskValue)
+        const taskValue = addTaskForm.value;
+        const prioValue = addPrioForm.value;
 
-        let createTask = new Task(taskValue);
-        createNewProject.addTask(createTask)
-         console.log(...allProjects)
+        let newTask = { description: taskValue, priority: prioValue };
+        createNewProject.addTask(newTask)
+        console.log(createNewProject)
+        addTaskForm.value = "";
      })
 
     content.appendChild(projectNameDiv);
     projectNameDiv.appendChild(addLabel);
-    projectNameDiv.appendChild(addTask);
+    projectNameDiv.appendChild(addTaskForm);
+    projectNameDiv.appendChild(addLabelPrio);
+    projectNameDiv.appendChild(addPrioForm);
     projectNameDiv.appendChild(addButton);
     
 
@@ -63,7 +81,7 @@ subButton.addEventListener("click", ()=>{
 
 });
 
-//console.log(propertyValue)
+
 
 
 
