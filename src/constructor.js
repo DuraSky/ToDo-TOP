@@ -7,4 +7,10 @@ export class Project {
     addTask(newTask){
         this.task.push(newTask);
     }
+
+    displayTask(){
+        let toString = this.task.toString();
+        console.log(toString)
+        return toString;
+    }
 }

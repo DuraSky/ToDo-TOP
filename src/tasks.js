@@ -1,7 +1,9 @@
-export const taskDiv = document.createElement("div");
+import { Project } from "./constructor";
 
 
 export function createTask(createNewProject){
+    const taskDiv = document.createElement("div");
+    
         //DOM for adding Tasks into Projects
         const addTaskForm = document.createElement("input");
         addTaskForm.setAttribute("type", "text");
@@ -57,6 +59,15 @@ export function createTask(createNewProject){
         //DOM for adding button to add Tasks
        const addButton = document.createElement("button");
         addButton.innerHTML = "add"
+
+        //DOM for adding tasks options into a div
+        const taskOptionsDiv = document.createElement("div");
+        taskOptionsDiv.classList.add("taskOptions")
+
+        //DOM for displaying tasks
+        const currentTasksDiv = document.createElement("div");
+        currentTasksDiv.classList.add("currentTasks");
+        
         
         //Tasks being added to array
          addButton.addEventListener("click", ()=>{
@@ -70,19 +81,24 @@ export function createTask(createNewProject){
                 priority: prioValue,
                 dueDate: dueDateValue 
             });
-
-            console.log(createNewProject)
+            
             addTaskForm.value = "";
-         })
-    
-        
-        taskDiv.appendChild(addLabel);
-        taskDiv.appendChild(addTaskForm);
-        taskDiv.appendChild(addLabelPrio);
-        taskDiv.appendChild(addPrioForm);
-        taskDiv.appendChild(addTaskDueDateLabel);
-        taskDiv.appendChild(addTaskDueDateForm);
-        taskDiv.appendChild(addButton);
+            console.log(createNewProject);
+            console.log(createNewProject.task)
+            //currentTasksDiv.innerHTML = createNewProject.task;
+        })
 
-        return {taskDiv}
+
+        taskOptionsDiv.appendChild(addLabel);
+        taskOptionsDiv.appendChild(addTaskForm);
+        taskOptionsDiv.appendChild(addLabelPrio);
+        taskOptionsDiv.appendChild(addPrioForm);
+        taskOptionsDiv.appendChild(addTaskDueDateLabel);
+        taskOptionsDiv.appendChild(addTaskDueDateForm);
+        taskOptionsDiv.appendChild(addButton);
+        taskDiv.appendChild(taskOptionsDiv);
+        taskDiv.appendChild(currentTasksDiv);
+        
+
+        return taskDiv;
 }
