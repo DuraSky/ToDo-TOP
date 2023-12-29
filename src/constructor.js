@@ -8,9 +8,23 @@ export class Project {
         this.task.push(newTask);
     }
 
-    displayTask(){
-        let toString = this.task.toString();
-        console.log(toString)
-        return toString;
+    displayTask(index){
+        console.log(this.task[index-1])
+    }
+
+    getDescription(){
+        return this.task.map(task => task.description); 
+    }
+
+    getPrio(){
+        return this.task.map(task => task.priority); 
+    }
+
+    getDueDate(){
+        return this.task.map(task => task.dueDate); 
+    }
+
+    getID(){
+        return this.task.map(task => task.id);
     }
 }
