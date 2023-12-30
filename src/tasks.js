@@ -83,6 +83,7 @@ export function createTask(createNewProject){
         //DOM for displaying tasks
         const currentTasksDiv = document.createElement("div");
         currentTasksDiv.classList.add("currentTasks");
+        currentTasksDiv.setAttribute("data-id", taskCounter);
             
         addTaskForm.value = "";
         console.log(createNewProject);
@@ -92,22 +93,43 @@ export function createTask(createNewProject){
              priority: ${createNewProject.getPrio()[taskCounter]},
              it is due till ${createNewProject.getDueDate()[taskCounter]}`;
 
+        //Deleting Tasks
         const deleteTaskButton = document.createElement("button");
         deleteTaskButton.classList.add("deleteTask");
+        deleteTaskButton.setAttribute("data-id", taskCounter)
         deleteTaskButton.innerHTML = "Delete Task";
+
+        const getTaskDelBtnId = deleteTaskButton.dataset.id;
+        const getTaskDivId = currentTasksDiv.dataset.id;
+
+        deleteTaskButton.addEventListener("click", ()=>{
+            console.log(createNewProject.task[getTaskDelBtnId])
+
+            createNewProject.task.splice(currentTasksDiv,1);
+            console.log(createNewProject);
+
+            taskDiv.removeChild(currentTasksDiv)
+                
+            taskCounter--;
+        });
+
+        //Editing tasks
+        const editTaskButton = document.createElement("button");
+        editTaskButton.innerHTML = "Edit Task";
+
+        editTaskButton.addEventListener("click", ()=>{
+            let editTaskName = prompt("New Task name:");
+            createNewProject.task[currentTasksDiv].description = editTaskName;
+        })
 
         taskDiv.appendChild(currentTasksDiv);
         currentTasksDiv.appendChild(deleteTaskButton);
-
-            deleteTaskButton.addEventListener("click", ()=>{
-                console.log(`${createNewProject.getID()[taskCounter -1]}`)
-                
-            });
+        currentTasksDiv.appendChild(editTaskButton);
 
         taskCounter++;
     })
 
-
+    
     taskOptionsDiv.appendChild(addLabel);
     taskOptionsDiv.appendChild(addTaskForm);
     taskOptionsDiv.appendChild(addLabelPrio);
