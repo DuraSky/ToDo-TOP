@@ -77,7 +77,7 @@ export function createTask(createNewProject){
             description: taskValue,
             priority: prioValue,
             dueDate: dueDateValue,
-            id: taskCounter
+            id: taskCounter++,
         });
 
         //DOM for displaying tasks
@@ -89,9 +89,9 @@ export function createTask(createNewProject){
         console.log(createNewProject);
 
         currentTasksDiv.innerHTML = 
-            `Task name: ${createNewProject.getDescription()[taskCounter]},
-             priority: ${createNewProject.getPrio()[taskCounter]},
-             it is due till ${createNewProject.getDueDate()[taskCounter]}`;
+            `Task name: ${createNewProject.getDescription()[taskCounter -1]},
+             priority: ${createNewProject.getPrio()[taskCounter -1]},
+             it is due till ${createNewProject.getDueDate()[taskCounter -1]}`;
 
         //Deleting Tasks
         const deleteTaskButton = document.createElement("button");
@@ -103,14 +103,23 @@ export function createTask(createNewProject){
         const getTaskDivId = currentTasksDiv.dataset.id;
 
         deleteTaskButton.addEventListener("click", ()=>{
-            console.log(createNewProject.task[getTaskDelBtnId])
+            // console.log(createNewProject.task[getTaskDelBtnId])
 
-            createNewProject.task.splice(currentTasksDiv,1);
-            console.log(createNewProject);
+            // createNewProject.task.splice(currentTasksDiv,1);
+            // console.log(createNewProject);
 
-            taskDiv.removeChild(currentTasksDiv)
+            // taskDiv.removeChild(currentTasksDiv)
                 
+            //taskCounter--;
+
+
+            for (let i = 0; i < createNewProject.task.length; i++){
+                if(createNewProject.task[i].id == getTaskDivId){
+                    createNewProject.task.splice(getTaskDivId,1);                   
+                }
+            }
             taskCounter--;
+            taskDiv.removeChild(currentTasksDiv)
         });
 
         //Editing tasks
@@ -118,15 +127,47 @@ export function createTask(createNewProject){
         editTaskButton.innerHTML = "Edit Task";
 
         editTaskButton.addEventListener("click", ()=>{
-            let editTaskName = prompt("New Task name:");
-            createNewProject.task[currentTasksDiv].description = editTaskName;
+             console.log("task id: " + getTaskDivId)
+
+             let editTaskName = prompt("New Task name:");
+            // createNewProject.task[getTaskDivId].description = editTaskName;
+            // console.log(createNewProject);
+
+
+
+            // currentTasksDiv.innerHTML = 
+            // `Task name: ${createNewProject.getDescription()[getTaskDivId]},
+            //  priority: ${createNewProject.getPrio()[getTaskDivId]},
+            //  it is due till ${createNewProject.getDueDate()[getTaskDivId]}`;
+            //  currentTasksDiv.appendChild(deleteTaskButton);
+            // currentTasksDiv.appendChild(editTaskButton);
+
+            for (let i = 0; i < createNewProject.task.length; i++){
+                if(createNewProject.task[i].id == getTaskDivId){
+                    createNewProject.task[getTaskDivId].description = editTaskName;
+                   
+                }
+            }
+
+            currentTasksDiv.innerHTML = 
+            `Task name: ${createNewProject.getDescription()[getTaskDivId]},
+             priority: ${createNewProject.getPrio()[getTaskDivId]},
+             it is due till ${createNewProject.getDueDate()[getTaskDivId]}`;
+
+            console.log(createNewProject)
+
+            currentTasksDiv.appendChild(deleteTaskButton);
+        currentTasksDiv.appendChild(editTaskButton);
+
+
+
         })
 
         taskDiv.appendChild(currentTasksDiv);
         currentTasksDiv.appendChild(deleteTaskButton);
         currentTasksDiv.appendChild(editTaskButton);
 
-        taskCounter++;
+
     })
 
     
