@@ -71,28 +71,30 @@ export function createTask(createNewProject){
         const taskValue = addTaskForm.value;
         const prioValue = addPrioForm.value;
         const dueDateValue = addTaskDueDateForm.value;
+
+        const taskId = createNewProject.task.length + 1;
     
     
         createNewProject.addTask({ 
             description: taskValue,
             priority: prioValue,
             dueDate: dueDateValue,
-            id: taskCounter++,
+            id: taskId,
         });
 
         //DOM for displaying tasks
         const currentTasksDiv = document.createElement("div");
         currentTasksDiv.classList.add("currentTasks");
-        currentTasksDiv.setAttribute("data-id", taskCounter);
+        currentTasksDiv.setAttribute("data-id", taskId);
             
         addTaskForm.value = "";
         console.log(createNewProject);
 
-        currentTasksDiv.innerHTML = 
-            `Task name: ${createNewProject.getDescription()[taskCounter -1]},
-             priority: ${createNewProject.getPrio()[taskCounter -1]},
-             it is due till ${createNewProject.getDueDate()[taskCounter -1]}`;
-
+        currentTasksDiv.innerHTML = `
+        Task name: ${createNewProject.getDescription()[taskId - 1]},
+        priority: ${createNewProject.getPrio()[taskId - 1]},
+        it is due till ${createNewProject.getDueDate()[taskId - 1]}
+    `;
         //Deleting Tasks
         const deleteTaskButton = document.createElement("button");
         deleteTaskButton.classList.add("deleteTask");
@@ -103,23 +105,9 @@ export function createTask(createNewProject){
         const getTaskDivId = currentTasksDiv.dataset.id;
 
         deleteTaskButton.addEventListener("click", ()=>{
-            // console.log(createNewProject.task[getTaskDelBtnId])
 
-            // createNewProject.task.splice(currentTasksDiv,1);
-            // console.log(createNewProject);
-
-            // taskDiv.removeChild(currentTasksDiv)
-                
-            //taskCounter--;
-
-
-            for (let i = 0; i < createNewProject.task.length; i++){
-                if(createNewProject.task[i].id == getTaskDivId){
-                    createNewProject.task.splice(getTaskDivId,1);                   
-                }
-            }
-            taskCounter--;
-            taskDiv.removeChild(currentTasksDiv)
+            createNewProject.task = createNewProject.task.filter(task => task.id !== taskId);
+            taskDiv.removeChild(currentTasksDiv);
         });
 
         //Editing tasks
@@ -127,33 +115,16 @@ export function createTask(createNewProject){
         editTaskButton.innerHTML = "Edit Task";
 
         editTaskButton.addEventListener("click", ()=>{
-             console.log("task id: " + getTaskDivId)
+             console.log("task id: " + taskId)
 
              let editTaskName = prompt("New Task name:");
-            // createNewProject.task[getTaskDivId].description = editTaskName;
-            // console.log(createNewProject);
+             createNewProject.task[taskId - 1].description = editTaskName;
 
-
-
-            // currentTasksDiv.innerHTML = 
-            // `Task name: ${createNewProject.getDescription()[getTaskDivId]},
-            //  priority: ${createNewProject.getPrio()[getTaskDivId]},
-            //  it is due till ${createNewProject.getDueDate()[getTaskDivId]}`;
-            //  currentTasksDiv.appendChild(deleteTaskButton);
-            // currentTasksDiv.appendChild(editTaskButton);
-
-            for (let i = 0; i < createNewProject.task.length; i++){
-                if(createNewProject.task[i].id == getTaskDivId){
-                    createNewProject.task[getTaskDivId].description = editTaskName;
-                   
-                }
-            }
-
-            currentTasksDiv.innerHTML = 
-            `Task name: ${createNewProject.getDescription()[getTaskDivId]},
-             priority: ${createNewProject.getPrio()[getTaskDivId]},
-             it is due till ${createNewProject.getDueDate()[getTaskDivId]}`;
-
+             currentTasksDiv.innerHTML = `
+                 Task name: ${createNewProject.getDescription()[taskId - 1]},
+                 priority: ${createNewProject.getPrio()[taskId - 1]},
+                 it is due till ${createNewProject.getDueDate()[taskId - 1]}
+             `;
             console.log(createNewProject)
 
             currentTasksDiv.appendChild(deleteTaskButton);

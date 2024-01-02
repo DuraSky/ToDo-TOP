@@ -24,10 +24,7 @@ export class Project {
         return this.task.map(task => task.dueDate); 
     }
 
-    getID(i){
-        //return console.log(this.task.map(task => task.id));
-        if(i ===this.task.id){
-            console.log("id is: " + task.id)
-        }else{console.log("wrong")}
-    }
+    getID(){
+        return console.log(this.task.map(task => task.id));
+}
 }
