@@ -16,7 +16,7 @@ export function createTask(createNewProject){
     addLabel.setAttribute("for", "setProperty");
     addLabel.innerHTML = "Task Name:";
     
-    taskDiv.setAttribute("id", "taskDiv");
+    taskDiv.classList.add("taskDiv");
     
     //DOM for adding priority on Tasks
     const addPrioForm = document.createElement("select");  
@@ -51,6 +51,7 @@ export function createTask(createNewProject){
     addTaskDueDateForm.setAttribute("type", "date");
     addTaskDueDateForm.setAttribute("name", "taskDueDate");
     addTaskDueDateForm.setAttribute("id", "taskDueDate");
+    addTaskDueDateForm.setAttribute("required", "")
     
     const addTaskDueDateLabel = document.createElement("label");
     addTaskDueDateLabel.setAttribute("for", "taskDueDate");
@@ -69,6 +70,10 @@ export function createTask(createNewProject){
         const taskValue = addTaskForm.value;
         const prioValue = addPrioForm.value;
         const dueDateValue = addTaskDueDateForm.value;
+
+        // if(taskValue==""||prioValue==""||dueDateValue==""){
+        // return alert("Fill out all the fields")
+        // }
     
          createNewProject.addTask({ 
             description: taskValue,
@@ -94,6 +99,24 @@ export function createTask(createNewProject){
              priority: ${createNewProject.getPrio()[createNewProject.task.length -1]},
              it is due till ${createNewProject.getDueDate()[createNewProject.task.length -1]}`;
 
+
+        //Marking as complete
+        const completeButton = document.createElement("button");
+        completeButton.innerHTML= "Mark as complete";
+
+        completeButton.addEventListener("click", ()=>{
+            for (let i = 0; i < createNewProject.task.length; i++){
+                if(createNewProject.task[i].id == getTaskDivId){ 
+                    //currentTasksDiv.classList.add("completed")
+                    if(currentTasksDiv.classList.contains("complete")){
+                        currentTasksDiv.classList.remove("complete")
+                    }else{
+                        currentTasksDiv.classList.add("complete")
+                    }
+                }
+            }
+        })
+
         //Deleting Tasks
         const deleteTaskButton = document.createElement("button");
         deleteTaskButton.classList.add("deleteTask");
@@ -115,7 +138,7 @@ export function createTask(createNewProject){
 
         //Editing tasks
         const editTaskButton = document.createElement("button");
-        editTaskButton.innerHTML = "Edit Task";
+        editTaskButton.innerHTML = "Edit Name";
 
         editTaskButton.addEventListener("click", ()=>{
             let editTaskName = prompt("New Task name:");
@@ -131,15 +154,18 @@ export function createTask(createNewProject){
                 }
             }
 
-        console.log(createNewProject)
 
-        currentTasksDiv.appendChild(deleteTaskButton);
+        console.log(createNewProject)
+        currentTasksDiv.appendChild(completeButton);
         currentTasksDiv.appendChild(editTaskButton);
+        currentTasksDiv.appendChild(deleteTaskButton);
+        
         })
 
         taskDiv.appendChild(currentTasksDiv);
-        currentTasksDiv.appendChild(deleteTaskButton);
+        currentTasksDiv.appendChild(completeButton);
         currentTasksDiv.appendChild(editTaskButton);
+        currentTasksDiv.appendChild(deleteTaskButton);
 })
  
     taskOptionsDiv.appendChild(addLabel);
