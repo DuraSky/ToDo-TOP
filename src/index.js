@@ -1,5 +1,6 @@
 import { Project } from "./constructor";
 import { createTask } from "./tasks";
+import { storeProject, deleteProject, updateProjectName, checkIfUsed} from "./storage";
 
 const content = document.getElementById("content");
 const projectNameForm = document.getElementById("projectName");
@@ -15,7 +16,6 @@ subButton.addEventListener("click", ()=>{
     let theNameIs = projectNameForm.value;
     let createNewProject = new Project(theNameIs);
 
-
     projectH3.innerHTML = `Project name: ${theNameIs}`;
 
     const taskDiv = createTask(createNewProject);
@@ -26,27 +26,28 @@ subButton.addEventListener("click", ()=>{
     const editProjectBtn = document.createElement("button");
     editProjectBtn.innerHTML = "Edit Project";
 
-    content.appendChild(projectNameDiv);
+    if(storeProject(createNewProject) ===false ){
+        content.appendChild(projectNameDiv);
+    };
     projectNameDiv.appendChild(projectHeadlineDiv);
     projectHeadlineDiv.appendChild(projectH3)
-    //projectNameDiv.appendChild(projectH3);
     projectHeadlineDiv.appendChild(removeProjectBtn);
     projectHeadlineDiv.appendChild(editProjectBtn);
-
     projectNameDiv.appendChild(taskDiv);
 
     removeProjectBtn.addEventListener("click",()=>{
         content.removeChild(projectNameDiv);
+        deleteProject(createNewProject)
     })
 
     editProjectBtn.addEventListener("click", ()=>{
         let newNameIs = prompt("enter new project name:");
+        updateProjectName(createNewProject, newNameIs)
         console.log(newNameIs);
         theNameIs = newNameIs;
         createNewProject.projectName = theNameIs;
 
         projectH3.innerHTML = `Project name is: ${theNameIs}`;
-
         projectH3.appendChild(removeProjectBtn);
         projectH3.appendChild(editProjectBtn);
     })
@@ -78,6 +79,7 @@ function displayProject(project) {
     const editProjectBtn = document.createElement("button");
     editProjectBtn.innerHTML = "Edit Project";
 
+    
     content.appendChild(projectNameDiv);
     projectNameDiv.appendChild(projectHeadlineDiv);
     projectHeadlineDiv.appendChild(projectH3)
