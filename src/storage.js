@@ -1,5 +1,4 @@
 export function storeProject(project) {
-
     let existingProjects = JSON.parse(localStorage.getItem("Projects")) || [];
 
     // Check if the project with the same name already exists
@@ -19,8 +18,6 @@ export function storeProject(project) {
         return false;
     }
 }
-
-
 
 export function deleteProject(projectToDelete) {
 
@@ -50,5 +47,26 @@ export function updateProjectName(projectToEdit, newNameIs){
         }
     }
 
+}
+
+export function storeTasks(storeTask, projectName){
+    let existingProjects = JSON.parse(localStorage.getItem("Projects")) || [];
+
+    // for(let i = 0; i < existingProjects.length; i++){
+    //     if(existingProjects[i].projectName === projectName.projectName){
+    //         console.log("match found at ")
+    //         console.log(existingProjects[i].task)
+    //         console.log("pushing");
+    //         console.log(storeTask)
+    //         existingProjects[i].task.push(storeTask);
+    //     }else{
+    //         console.log("we dont match")
+    //     }
+    // }
+    // localStorage.setItem("Projects", JSON.stringify(existingProjects));
+
+    const existingProject = existingProjects.find((projectObj) => {
+        return projectObj.projectName === project.projectName;
+    });
 }
 

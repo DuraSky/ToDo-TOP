@@ -1,4 +1,5 @@
 import { Project } from "./constructor";
+import { storeTasks } from "./storage";
 
 export function createTask(createNewProject){
     let dataCounter = 0;
@@ -82,6 +83,7 @@ export function createTask(createNewProject){
             id: dataCounter++,
         });
         taskCounter++;
+        storeTasks(createNewProject.task, createNewProject);
 
         //DOM for displaying tasks
         const currentTasksDiv = document.createElement("div");
@@ -107,7 +109,6 @@ export function createTask(createNewProject){
         completeButton.addEventListener("click", ()=>{
             for (let i = 0; i < createNewProject.task.length; i++){
                 if(createNewProject.task[i].id == getTaskDivId){ 
-                    //currentTasksDiv.classList.add("completed")
                     if(currentTasksDiv.classList.contains("complete")){
                         currentTasksDiv.classList.remove("complete")
                     }else{
