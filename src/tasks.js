@@ -1,5 +1,4 @@
-import { Project } from "./constructor";
-import { storeTasks } from "./storage";
+import { storeTasks, deleteTask, updateTaskName } from "./storage";
 
 export function createTask(createNewProject){
     let dataCounter = 0;
@@ -126,7 +125,9 @@ export function createTask(createNewProject){
         deleteTaskButton.addEventListener("click", ()=>{
             for (let i = 0; i < createNewProject.task.length; i++){
                 if(createNewProject.task[i].id == getTaskDivId){
+                    deleteTask(createNewProject.task[i], createNewProject)
                     createNewProject.task.splice(i,1);  
+                    
                     
                     currentTasksDiv.innerHTML = 
                     `Task name: ${createNewProject.getDescription()[i]},
@@ -134,7 +135,8 @@ export function createTask(createNewProject){
                      it is due till ${createNewProject.getDueDate()[i]}`;
                 }
             }
-            taskDiv.removeChild(currentTasksDiv)   
+            taskDiv.removeChild(currentTasksDiv);
+            ; 
         });
 
         //Editing tasks
@@ -146,6 +148,7 @@ export function createTask(createNewProject){
 
             for (let i = 0; i < createNewProject.task.length; i++){
                 if(createNewProject.task[i].id == getTaskDivId){
+                    updateTaskName(createNewProject.task[i],createNewProject,editTaskName);
                     createNewProject.task[i].description = editTaskName;
 
                     currentTasksDiv.innerHTML = 

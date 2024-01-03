@@ -52,21 +52,62 @@ export function updateProjectName(projectToEdit, newNameIs){
 export function storeTasks(storeTask, projectName){
     let existingProjects = JSON.parse(localStorage.getItem("Projects")) || [];
 
-    // for(let i = 0; i < existingProjects.length; i++){
-    //     if(existingProjects[i].projectName === projectName.projectName){
-    //         console.log("match found at ")
-    //         console.log(existingProjects[i].task)
-    //         console.log("pushing");
-    //         console.log(storeTask)
-    //         existingProjects[i].task.push(storeTask);
-    //     }else{
-    //         console.log("we dont match")
-    //     }
-    // }
-    // localStorage.setItem("Projects", JSON.stringify(existingProjects));
-
-    const existingProject = existingProjects.find((projectObj) => {
-        return projectObj.projectName === project.projectName;
-    });
+     for(let i = 0; i < existingProjects.length; i++){
+         if(existingProjects[i].projectName === projectName.projectName){
+            existingProjects[i].task = storeTask;
+         }else{
+             console.log("we dont match")
+         }
+     }
+     localStorage.setItem("Projects", JSON.stringify(existingProjects));
 }
 
+
+export function deleteTask(taskToDelete, projectName) {
+    let existingProjects = JSON.parse(localStorage.getItem("Projects")) || [];
+
+    for (let i = 0; i < existingProjects.length; i++) {
+        if (existingProjects[i].projectName === projectName.projectName) {
+
+            const indexToDelete = existingProjects[i].task.findIndex(task => task.id === taskToDelete.id);
+
+            // If the task is found, remove it from the 'task' array
+            if (indexToDelete !== -1) {
+                existingProjects[i].task.splice(indexToDelete, 1);
+                console.log("Updated tasks:", existingProjects[i].task);
+            } else {
+                console.log("Task not found:", taskToDelete);
+            }
+        } else {
+            console.log("No match for:", projectName.projectName);
+        }
+    }
+
+    // Update local storage with the modified array
+    localStorage.setItem("Projects", JSON.stringify(existingProjects));
+}
+
+export function updateTaskName(taskToUpdate, projectName, newName){
+    let existingProjects = JSON.parse(localStorage.getItem("Projects")) || [];
+
+    for (let i = 0; i < existingProjects.length; i++) {
+        if (existingProjects[i].projectName === projectName.projectName) {
+
+            const indexToDelete = existingProjects[i].task.findIndex(task => task.id === taskToUpdate.id);
+
+            // If the task is found, remove it from the 'task' array
+            if (indexToDelete !== -1) {
+                existingProjects[i].task.description = newName;
+                console.log("Updated tasks:", existingProjects[i].task);
+            } else {
+                //console.log("Task not found:", taskToDelete);
+            }
+        } else {
+            console.log("No match for:", projectName.projectName);
+        }
+    }
+
+    // Update local storage with the modified array
+    localStorage.setItem("Projects", JSON.stringify(existingProjects));
+
+}
