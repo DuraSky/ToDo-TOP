@@ -1,3 +1,4 @@
+
 export function storeProject(project) {
     let existingProjects = JSON.parse(localStorage.getItem("Projects")) || [];
 
@@ -92,22 +93,19 @@ export function updateTaskName(taskToUpdate, projectName, newName){
 
     for (let i = 0; i < existingProjects.length; i++) {
         if (existingProjects[i].projectName === projectName.projectName) {
-
-            const indexToDelete = existingProjects[i].task.findIndex(task => task.id === taskToUpdate.id);
-
-            // If the task is found, remove it from the 'task' array
-            if (indexToDelete !== -1) {
-                existingProjects[i].task.description = newName;
-                console.log("Updated tasks:", existingProjects[i].task);
-            } else {
-                //console.log("Task not found:", taskToDelete);
+            //run for loop on existingProjects[i].task and match it agains taskToUpdate
+            for(let j = 0; j < existingProjects[i].task.length; j++){
+                if(existingProjects[i].task[j].id === taskToUpdate.id){
+                    console.log("match");
+                    existingProjects[i].task[j].description = newName;
+                    localStorage.setItem("Projects", JSON.stringify(existingProjects));
+                }
             }
-        } else {
-            console.log("No match for:", projectName.projectName);
         }
     }
+}
 
-    // Update local storage with the modified array
-    localStorage.setItem("Projects", JSON.stringify(existingProjects));
-
+export function getProjectsFromStorage() {
+    const storedProjects = localStorage.getItem("Projects");
+    return storedProjects ? JSON.parse(storedProjects) : [];
 }
