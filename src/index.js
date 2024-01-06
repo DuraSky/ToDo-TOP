@@ -2,6 +2,7 @@ import { Project } from "./constructor";
 import { createTask } from "./tasks";
 import { storeProject, deleteProject, updateProjectName, getProjectsFromStorage} from "./storage";
 import { displayProjectFromStorage } from "./display";
+import { addCompleteButton } from "./buttons";
 
 
 const content = document.getElementById("content");
@@ -10,10 +11,41 @@ const subButton = document.getElementById("submit");
 
 window.onload = function () {
     const storedProjects = getProjectsFromStorage();
+    console.log("getting tasks")
+    console.log(storedProjects[0].task)
+
     storedProjects.forEach((storedProject) => {
-        displayProject(storedProject);
+        console.log("tasksins")
+        console.log(storedProject.task)
+        const projectInstance = new Project(storedProject.projectName);
+        console.log(projectInstance)
+        
+        console.log("before tasks")
+        console.log(projectInstance)
+        storedProject.task.forEach((task)=>{
+            projectInstance.addTask({
+                description: task.description,
+                priority: task.priority,
+                dueDate: task.dueDate,
+                id: task.id,
+            })   
+        
+        });
+        console.log("after tasks")
+        console.log(projectInstance)
+        displayProject(projectInstance);
+
     });
-};
+   
+}
+
+   // projectInstance.addTask({  
+        //     description: projectInstance.task.description,
+        //     priority: projectInstance.task.priority,
+        //     dueDate: projectInstance.task.dueDate,
+        //     id: projectInstance.task.id,
+
+        // })
 
 subButton.addEventListener("click", ()=>{
     //DOM for adding projects
@@ -118,7 +150,9 @@ subButton.addEventListener("click", ()=>{
 // }
 
 
-function displayProject(project) {
+function displayProject(projectInstance) {
+    console.log("here")
+    console.log(projectInstance)
     const projectNameDiv = document.createElement("div");
     projectNameDiv.setAttribute("id", "projectNameDiv");
     const projectHeadlineDiv = document.createElement('div');
@@ -126,9 +160,9 @@ function displayProject(project) {
     const projectH3 = document.createElement("h3");
 
     // Display project name from storage
-    projectH3.innerHTML = `Project name: ${displayProjectFromStorage(project.projectName)}`;
+    projectH3.innerHTML = `Project name: ${displayProjectFromStorage(projectInstance.projectName)}`;
 
-    const taskDiv = createTask(project);
+    const taskDiv = createTask(projectInstance);
 
     const removeProjectBtn = document.createElement("button");
     removeProjectBtn.innerHTML = "Delete Project";
@@ -142,14 +176,28 @@ function displayProject(project) {
     projectHeadlineDiv.appendChild(editProjectBtn);
     projectNameDiv.appendChild(taskDiv);
 
+    projectInstance.task.forEach((task) => {
+        const taskElement = document.createElement("div");
+        taskElement.classList.add("currentTasks");
+        
+        taskElement.innerHTML = `
+            Task name: ${task.description},
+            priority: ${task.priority},
+            it is due till ${task.dueDate}`;
+        
+        // Add additional buttons or functionality related to tasks if needed
+        
+        taskDiv.appendChild(taskElement);
+    });
+
     removeProjectBtn.addEventListener("click", () => {
         content.removeChild(projectNameDiv);
-        deleteProject(project);
+        deleteProject(projectInstance);
     });
 
     editProjectBtn.addEventListener("click", () => {
         let newNameIs = prompt("Enter new project name:");
-        updateProjectName(project, newNameIs);
+        updateProjectName(projectInstance, newNameIs);
 
         // Update the displayed project name
         projectH3.innerHTML = `Project name: ${displayProjectFromStorage(newNameIs)}`;

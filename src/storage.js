@@ -1,5 +1,6 @@
 
 export function storeProject(project) {
+    
     let existingProjects = JSON.parse(localStorage.getItem("Projects")) || [];
 
     // Check if the project with the same name already exists

@@ -1,4 +1,5 @@
 import { storeTasks, deleteTask, updateTaskName } from "./storage";
+import { addCompleteButton } from "./buttons";
 
 export function createTask(createNewProject){
     let dataCounter = 0;
@@ -64,6 +65,9 @@ export function createTask(createNewProject){
     //DOM for adding tasks options into a div
     const taskOptionsDiv = document.createElement("div");
     taskOptionsDiv.classList.add("taskOptions")      
+
+    console.log("in tasks")
+    console.log(createNewProject)
         
     //Tasks being added to array
     addButton.addEventListener("click", ()=>{
@@ -101,21 +105,7 @@ export function createTask(createNewProject){
              it is due till ${createNewProject.getDueDate()[createNewProject.task.length -1]}`;
 
 
-        //Marking as complete
-        const completeButton = document.createElement("button");
-        completeButton.innerHTML= "Mark as complete";
-
-        completeButton.addEventListener("click", ()=>{
-            for (let i = 0; i < createNewProject.task.length; i++){
-                if(createNewProject.task[i].id == getTaskDivId){ 
-                    if(currentTasksDiv.classList.contains("complete")){
-                        currentTasksDiv.classList.remove("complete")
-                    }else{
-                        currentTasksDiv.classList.add("complete")
-                    }
-                }
-            }
-        })
+        const completeButton = addCompleteButton(createNewProject, getTaskDivId, currentTasksDiv)
 
         //Deleting Tasks
         const deleteTaskButton = document.createElement("button");
@@ -136,7 +126,7 @@ export function createTask(createNewProject){
                 }
             }
             taskDiv.removeChild(currentTasksDiv);
-            ; 
+ 
         });
 
         //Editing tasks
