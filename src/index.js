@@ -10,10 +10,9 @@ const subButton = document.getElementById("submit");
 
 
 window.onload =  function () {
-    const storedProjects =  getProjectsFromStorage();
-
-    let defaultProject = new Project("Default")
+    let defaultProject = new Project("Default Project")
     setDefaultProject(defaultProject);
+    const storedProjects =  getProjectsFromStorage();
 
     storedProjects.forEach((storedProject) => {
         const projectInstance = new Project(storedProject.projectName);
