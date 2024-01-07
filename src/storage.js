@@ -1,3 +1,16 @@
+export function getProjectsFromStorage() {
+    const storedProjects = localStorage.getItem("Projects");
+    return storedProjects ? JSON.parse(storedProjects) : [];
+}
+
+export function setDefaultProject(defaultProject){
+    const storedProjects = getProjectsFromStorage();
+
+   if(storedProjects.length === 0){
+    storedProjects.push(defaultProject)
+    localStorage.setItem("Projects", JSON.stringify(storedProjects));
+   }
+}
 
 export function storeProject(project) {
     
@@ -48,7 +61,6 @@ export function updateProjectName(projectToEdit, newNameIs){
 
         }
     }
-
 }
 
 export function storeTasks(storeTask, projectName){
@@ -64,14 +76,13 @@ export function storeTasks(storeTask, projectName){
      localStorage.setItem("Projects", JSON.stringify(existingProjects));
 }
 
-
 export function deleteTask(taskToDelete, projectName) {
     let existingProjects = JSON.parse(localStorage.getItem("Projects")) || [];
 
     for (let i = 0; i < existingProjects.length; i++) {
         if (existingProjects[i].projectName === projectName.projectName) {
 
-            const indexToDelete = existingProjects[i].task.findIndex(task => task.id === taskToDelete.id);
+            const indexToDelete = existingProjects[i].task.findIndex(task => task.description === taskToDelete.description);
 
             // If the task is found, remove it from the 'task' array
             if (indexToDelete !== -1) {
@@ -84,7 +95,6 @@ export function deleteTask(taskToDelete, projectName) {
             console.log("No match for:", projectName.projectName);
         }
     }
-
     // Update local storage with the modified array
     localStorage.setItem("Projects", JSON.stringify(existingProjects));
 }
@@ -96,7 +106,7 @@ export function updateTaskName(taskToUpdate, projectName, newName){
         if (existingProjects[i].projectName === projectName.projectName) {
             //run for loop on existingProjects[i].task and match it agains taskToUpdate
             for(let j = 0; j < existingProjects[i].task.length; j++){
-                if(existingProjects[i].task[j].id === taskToUpdate.id){
+                if(existingProjects[i].task[j].description === taskToUpdate.description){
                     console.log("match");
                     existingProjects[i].task[j].description = newName;
                     localStorage.setItem("Projects", JSON.stringify(existingProjects));
@@ -106,7 +116,33 @@ export function updateTaskName(taskToUpdate, projectName, newName){
     }
 }
 
-export function getProjectsFromStorage() {
-    const storedProjects = localStorage.getItem("Projects");
-    return storedProjects ? JSON.parse(storedProjects) : [];
+export function markAsCompleted(taskToUpdate, projectName, value, currentTasksDiv){
+    let existingProjects = JSON.parse(localStorage.getItem("Projects")) || [];
+
+    for (let i = 0; i < existingProjects.length; i++) {
+        if (existingProjects[i].projectName === projectName.projectName) {
+            //run for loop on existingProjects[i].task and match it agains taskToUpdate
+            for(let j = 0; j < existingProjects[i].task.length; j++){
+                console.log("matching this task and this task")
+                console.log(existingProjects[i].task[j])
+                console.log(taskToUpdate)
+                if(existingProjects[i].task[j].description === taskToUpdate.description){
+                    console.log("match");
+                    existingProjects[i].task[j].completed = value;
+                    localStorage.setItem("Projects", JSON.stringify(existingProjects));
+                    console.log("task div")
+                    console.log(currentTasksDiv)
+                     if(value === true){
+                        console.log("true adding")
+                         currentTasksDiv.classList.add("complete")
+                     }if(value === false){
+                        console.log("false removing")
+                         currentTasksDiv.classList.remove("complete")
+                     }
+                }
+            }
+        }
+    }
 }
+
+

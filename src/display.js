@@ -1,5 +1,4 @@
 export function displayProjectFromStorage(theNameIs){
-
     let existingProjects = JSON.parse(localStorage.getItem("Projects")) || [];
 
     if (existingProjects.length > 0) {

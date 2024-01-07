@@ -1,5 +1,5 @@
 import { storeTasks, deleteTask, updateTaskName } from "./storage";
-import { addCompleteButton } from "./buttons";
+import { addCompleteButton, addDeleteButton, addEditButton } from "./buttons";
 
 export function createTask(createNewProject){
     let dataCounter = 0;
@@ -75,14 +75,17 @@ export function createTask(createNewProject){
         const prioValue = addPrioForm.value;
         const dueDateValue = addTaskDueDateForm.value;
 
-        // if(taskValue==""||prioValue==""||dueDateValue==""){
-        // return alert("Fill out all the fields")
-        // }
+        let isTaskCompleted = false;
+
+        if(taskValue==""||prioValue==""||dueDateValue==""){
+        return alert("Fill out all the fields")
+        }
     
          createNewProject.addTask({ 
             description: taskValue,
             priority: prioValue,
             dueDate: dueDateValue,
+            completed:isTaskCompleted,
             id: dataCounter++,
         });
         taskCounter++;
@@ -104,62 +107,16 @@ export function createTask(createNewProject){
              priority: ${createNewProject.getPrio()[createNewProject.task.length -1]},
              it is due till ${createNewProject.getDueDate()[createNewProject.task.length -1]}`;
 
+        const completeButton = addCompleteButton(createNewProject, getTaskDivId, currentTasksDiv, isTaskCompleted);
 
-        const completeButton = addCompleteButton(createNewProject, getTaskDivId, currentTasksDiv)
+        const deleteButton = addDeleteButton(createNewProject, getTaskDivId, currentTasksDiv, taskDiv)
 
-        //Deleting Tasks
-        const deleteTaskButton = document.createElement("button");
-        deleteTaskButton.classList.add("deleteTask");
-        deleteTaskButton.innerHTML = "Delete Task";
-
-        deleteTaskButton.addEventListener("click", ()=>{
-            for (let i = 0; i < createNewProject.task.length; i++){
-                if(createNewProject.task[i].id == getTaskDivId){
-                    deleteTask(createNewProject.task[i], createNewProject)
-                    createNewProject.task.splice(i,1);  
-                    
-                    
-                    currentTasksDiv.innerHTML = 
-                    `Task name: ${createNewProject.getDescription()[i]},
-                     priority: ${createNewProject.getPrio()[i]},
-                     it is due till ${createNewProject.getDueDate()[i]}`;
-                }
-            }
-            taskDiv.removeChild(currentTasksDiv);
- 
-        });
-
-        //Editing tasks
-        const editTaskButton = document.createElement("button");
-        editTaskButton.innerHTML = "Edit Name";
-
-        editTaskButton.addEventListener("click", ()=>{
-            let editTaskName = prompt("New Task name:");
-
-            for (let i = 0; i < createNewProject.task.length; i++){
-                if(createNewProject.task[i].id == getTaskDivId){
-                    updateTaskName(createNewProject.task[i],createNewProject,editTaskName);
-                    createNewProject.task[i].description = editTaskName;
-
-                    currentTasksDiv.innerHTML = 
-                    `Task name: ${createNewProject.getDescription()[i]},
-                     priority: ${createNewProject.getPrio()[i]},
-                     it is due till ${createNewProject.getDueDate()[i]}`;    
-                }
-            }
-
-
-        console.log(createNewProject)
-        currentTasksDiv.appendChild(completeButton);
-        currentTasksDiv.appendChild(editTaskButton);
-        currentTasksDiv.appendChild(deleteTaskButton);
-        
-        })
+        const editButton = addEditButton(createNewProject, getTaskDivId, currentTasksDiv, isTaskCompleted, taskDiv);
 
         taskDiv.appendChild(currentTasksDiv);
         currentTasksDiv.appendChild(completeButton);
-        currentTasksDiv.appendChild(editTaskButton);
-        currentTasksDiv.appendChild(deleteTaskButton);
+        currentTasksDiv.appendChild(editButton);
+        currentTasksDiv.appendChild(deleteButton);
 })
  
     taskOptionsDiv.appendChild(addLabel);
