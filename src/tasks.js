@@ -25,15 +25,15 @@ export function createTask(createNewProject){
     addPrioForm.setAttribute("id", "setPrio");
     
     const optionsHigh = document.createElement("option");
-    optionsHigh.setAttribute("value", "high");
+    optionsHigh.setAttribute("value", "High");
     const optionsTextHigh = document.createTextNode("High");
     
     const optionsMed = document.createElement("option");
-    optionsMed.setAttribute("value", "medium");
+    optionsMed.setAttribute("value", "Medium");
     const optionsTextMed = document.createTextNode("Medium");
     
     const optionsLow = document.createElement("option");
-    optionsLow.setAttribute("value", "low");
+    optionsLow.setAttribute("value", "Low");
     const optionsTextLow = document.createTextNode("Low");
     
     optionsHigh.appendChild(optionsTextHigh);
@@ -103,20 +103,25 @@ export function createTask(createNewProject){
 
         console.log(getTaskDivId + "for currenttaskDiv")
         currentTasksDiv.innerHTML = 
-            `Task name: ${createNewProject.getDescription()[createNewProject.task.length -1]},
-             priority: ${createNewProject.getPrio()[createNewProject.task.length -1]},
-             it is due till ${createNewProject.getDueDate()[createNewProject.task.length -1]}`;
+            `<div class="taskParaDiv"><p>Task name: <b>${createNewProject.getDescription()[createNewProject.task.length -1]}</b></p>
+            <p>Priority: <b>${createNewProject.getPrio()[createNewProject.task.length -1]}</b></p>
+            <p>It is due till: <b>${createNewProject.getDueDate()[createNewProject.task.length -1]}</b></p></div>`;
+
+        
+        const taskButtonDiv = document.createElement("div");
+        taskButtonDiv.classList.add("taskButtonDiv");
 
         const completeButton = addCompleteButton(createNewProject, getTaskDivId, currentTasksDiv, isTaskCompleted);
 
         const deleteButton = addDeleteButton(createNewProject, getTaskDivId, currentTasksDiv, taskDiv)
 
-        const editButton = addEditButton(createNewProject, getTaskDivId, currentTasksDiv, isTaskCompleted, taskDiv);
+        const editButton = addEditButton(createNewProject, getTaskDivId, currentTasksDiv, isTaskCompleted, taskDiv, taskButtonDiv);
 
         taskDiv.appendChild(currentTasksDiv);
-        currentTasksDiv.appendChild(completeButton);
-        currentTasksDiv.appendChild(editButton);
-        currentTasksDiv.appendChild(deleteButton);
+        currentTasksDiv.appendChild(taskButtonDiv);
+        taskButtonDiv.appendChild(completeButton);
+        taskButtonDiv.appendChild(editButton);
+        taskButtonDiv.appendChild(deleteButton);
 })
  
     taskOptionsDiv.appendChild(addLabel);

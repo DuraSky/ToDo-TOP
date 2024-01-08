@@ -3,6 +3,7 @@ import { createTask } from "./tasks";
 import { storeProject, deleteProject, updateProjectName, getProjectsFromStorage, setDefaultProject} from "./storage";
 import { displayProjectFromStorage } from "./display";
 import { addCompleteButton, addDeleteButton, addEditButton } from "./buttons";
+import "./style.css"
 
 const content = document.getElementById("content");
 const projectNameForm = document.getElementById("projectName");
@@ -39,6 +40,8 @@ subButton.addEventListener("click", ()=>{
     projectNameDiv.setAttribute("id", "projectNameDiv");
     const projectHeadlineDiv = document.createElement('div');
     projectHeadlineDiv.setAttribute("id", "projectHeadline");
+    const projectButtonsDiv = document.createElement("div");
+    projectButtonsDiv.classList.add("projectButtons")
     const projectH3 = document.createElement("h3");
     let theNameIs = projectNameForm.value;
     let createNewProject = new Project(theNameIs);
@@ -60,8 +63,9 @@ subButton.addEventListener("click", ()=>{
 
     projectNameDiv.appendChild(projectHeadlineDiv);
     projectHeadlineDiv.appendChild(projectH3)
-    projectHeadlineDiv.appendChild(removeProjectBtn);
-    projectHeadlineDiv.appendChild(editProjectBtn);
+    projectHeadlineDiv.appendChild(projectButtonsDiv)
+    projectButtonsDiv.appendChild(removeProjectBtn);
+    projectButtonsDiv.appendChild(editProjectBtn);
     projectNameDiv.appendChild(taskDiv);
 
     removeProjectBtn.addEventListener("click",()=>{
@@ -77,8 +81,8 @@ subButton.addEventListener("click", ()=>{
         createNewProject.projectName = theNameIs;
 
         projectH3.innerHTML = `Project name is: ${theNameIs}`;
-        projectH3.appendChild(removeProjectBtn);
-        projectH3.appendChild(editProjectBtn);
+        projectHeadlineDiv.appendChild(projectButtonsDiv)
+
     })   
     projectNameForm.value = "";
     console.log(createNewProject);
@@ -93,6 +97,8 @@ function displayProject(projectInstance) {
     projectNameDiv.setAttribute("id", "projectNameDiv");
     const projectHeadlineDiv = document.createElement('div');
     projectHeadlineDiv.setAttribute("id", "projectHeadline");
+    const projectButtonsDiv = document.createElement("div");
+    projectButtonsDiv.classList.add("projectButtons");
     const projectH3 = document.createElement("h3");
 
     // Display project name from storage
@@ -108,11 +114,14 @@ function displayProject(projectInstance) {
 
     projectNameDiv.appendChild(projectHeadlineDiv);
     projectHeadlineDiv.appendChild(projectH3);
-    projectHeadlineDiv.appendChild(removeProjectBtn);
-    projectHeadlineDiv.appendChild(editProjectBtn);
+    projectHeadlineDiv.appendChild(projectButtonsDiv)
+    projectButtonsDiv.appendChild(removeProjectBtn);
+    projectButtonsDiv.appendChild(editProjectBtn);
     projectNameDiv.appendChild(taskDiv);
 
     projectInstance.task.forEach((task) => {
+        const taskButtonDiv = document.createElement("div");
+        taskButtonDiv.classList.add("taskButtonDiv");
         const currentTasksDiv = document.createElement("div");
         currentTasksDiv.classList.add("currentTasks");
         currentTasksDiv.setAttribute("data-id", task.id);
@@ -125,18 +134,19 @@ function displayProject(projectInstance) {
         }
         
         currentTasksDiv.innerHTML = `
-            Task name: ${task.description},
-            priority: ${task.priority},
-            it is due till ${task.dueDate}`;
+            <div class="taskParaDiv"><p>Task name: <b>${task.description}</b></p>
+            <p>Priority: <b>${task.priority}</b></p>
+            <p>It is due till: <b>${task.dueDate}</b></p></div>`;
                 
         const completeButton = addCompleteButton(projectInstance,getTaskDivId, currentTasksDiv);
         const deleteButton = addDeleteButton(projectInstance, getTaskDivId, currentTasksDiv, taskDiv);
         const editButton = addEditButton(projectInstance, getTaskDivId, currentTasksDiv, isTaskCompleted, taskDiv);
 
         taskDiv.appendChild(currentTasksDiv);
-        currentTasksDiv.appendChild(completeButton);
-        currentTasksDiv.appendChild(editButton);
-        currentTasksDiv.appendChild(deleteButton);
+        currentTasksDiv.appendChild(taskButtonDiv);
+        taskButtonDiv.appendChild(completeButton);
+        taskButtonDiv.appendChild(editButton);
+        taskButtonDiv.appendChild(deleteButton);
     });
 
     removeProjectBtn.addEventListener("click", () => {

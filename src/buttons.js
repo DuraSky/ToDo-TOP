@@ -41,11 +41,6 @@ export function addDeleteButton (createNewProject, getTaskDivId, currentTasksDiv
                 deleteTask(createNewProject.task[i], createNewProject)
                 createNewProject.task.splice(i,1);  
                 
-                
-                currentTasksDiv.innerHTML = 
-                `Task name: ${createNewProject.getDescription()[i]},
-                 priority: ${createNewProject.getPrio()[i]},
-                 it is due till ${createNewProject.getDueDate()[i]}`;
             }
         }
         taskDiv.removeChild(currentTasksDiv);
@@ -54,7 +49,7 @@ export function addDeleteButton (createNewProject, getTaskDivId, currentTasksDiv
     return deleteTaskButton;
 }
 
-export function addEditButton(createNewProject, getTaskDivId, currentTasksDiv, isTaskCompleted, taskDiv){
+export function addEditButton(createNewProject, getTaskDivId, currentTasksDiv, isTaskCompleted, taskDiv, taskButtonDiv){
     const editTaskButton = document.createElement("button");
     editTaskButton.innerHTML = "Edit Name";
 
@@ -67,18 +62,17 @@ export function addEditButton(createNewProject, getTaskDivId, currentTasksDiv, i
                 createNewProject.task[i].description = editTaskName;
 
                 currentTasksDiv.innerHTML = 
-                `Task name: ${createNewProject.getDescription()[i]},
-                 priority: ${createNewProject.getPrio()[i]},
-                 it is due till ${createNewProject.getDueDate()[i]}`;    
+                `<div class="taskParaDiv"><p>Task name: <b>${createNewProject.getDescription()[i]}</b></p>
+                <p>priority: <b>${createNewProject.getPrio()[i]}</b></p>
+                <p>it is due till <b>${createNewProject.getDueDate()[i]}</b></p></div>`;    
             }
         }
 
 
     console.log(createNewProject);
-    currentTasksDiv.appendChild(addCompleteButton(createNewProject, getTaskDivId, currentTasksDiv, isTaskCompleted));
-    currentTasksDiv.appendChild(addDeleteButton(createNewProject, getTaskDivId, currentTasksDiv, taskDiv));
-    currentTasksDiv.appendChild(addEditButton(createNewProject, getTaskDivId, currentTasksDiv, isTaskCompleted, taskDiv));  
-    
+    currentTasksDiv.appendChild(taskButtonDiv);
+
+
     });
     return editTaskButton;
 }
