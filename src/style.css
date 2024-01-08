@@ -1,5 +1,48 @@
-body{
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+body, h3, p, input, button, label{
     padding: 0;
     margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    background-color: #141010; 
+}
+
+#projectAdding{
+    text-align: center;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #c3195d;
+}
+
+#content{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    justify-items: center;
+    gap: 5%;
+    
+
+    
+}
+
+#content .projectNameDiv:first-child{
+    margin-top: 3%;
+}
+
+
+
+.projectNameDiv{
+   grid-column: 2/3;
+  
+   background-color:  #680747;
+   
+}
+
+.taskDiv{
+    background-color: #c3195d;
 }
 

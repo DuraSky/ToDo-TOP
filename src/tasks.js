@@ -60,7 +60,7 @@ export function createTask(createNewProject){
     
     //DOM for adding button to add Tasks
     const addButton = document.createElement("button");
-    addButton.innerHTML = "add"
+    addButton.innerHTML = "Add Task"
 
     //DOM for adding tasks options into a div
     const taskOptionsDiv = document.createElement("div");

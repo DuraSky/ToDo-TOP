@@ -37,7 +37,7 @@ window.onload =  function () {
 subButton.addEventListener("click", ()=>{
     //DOM for adding projects
     const projectNameDiv = document.createElement("div");
-    projectNameDiv.setAttribute("id", "projectNameDiv");
+    projectNameDiv.classList.add("projectNameDiv");
     const projectHeadlineDiv = document.createElement('div');
     projectHeadlineDiv.setAttribute("id", "projectHeadline");
     const projectButtonsDiv = document.createElement("div");
@@ -94,7 +94,7 @@ function displayProject(projectInstance) {
     console.log("here")
     console.log(projectInstance)
     const projectNameDiv = document.createElement("div");
-    projectNameDiv.setAttribute("id", "projectNameDiv");
+    projectNameDiv.classList.add("projectNameDiv");
     const projectHeadlineDiv = document.createElement('div');
     projectHeadlineDiv.setAttribute("id", "projectHeadline");
     const projectButtonsDiv = document.createElement("div");
