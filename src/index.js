@@ -39,7 +39,7 @@ subButton.addEventListener("click", ()=>{
     const projectNameDiv = document.createElement("div");
     projectNameDiv.classList.add("projectNameDiv");
     const projectHeadlineDiv = document.createElement('div');
-    projectHeadlineDiv.setAttribute("id", "projectHeadline");
+    projectHeadlineDiv.classList.add("projectHeadline");
     const projectButtonsDiv = document.createElement("div");
     projectButtonsDiv.classList.add("projectButtons")
     const projectH3 = document.createElement("h3");
@@ -96,7 +96,7 @@ function displayProject(projectInstance) {
     const projectNameDiv = document.createElement("div");
     projectNameDiv.classList.add("projectNameDiv");
     const projectHeadlineDiv = document.createElement('div');
-    projectHeadlineDiv.setAttribute("id", "projectHeadline");
+    projectHeadlineDiv.classList.add("projectHeadline");
     const projectButtonsDiv = document.createElement("div");
     projectButtonsDiv.classList.add("projectButtons");
     const projectH3 = document.createElement("h3");

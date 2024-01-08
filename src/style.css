@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
 
-body, h3, p, input, button, label{
+body, h3, p, input, button, label, h1{
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -8,24 +8,36 @@ body, h3, p, input, button, label{
 
 body{
     background-color: #141010; 
+    position: relative;
 }
 
 #projectAdding{
-    text-align: center;
     padding: 20px;
     position: sticky;
     top: 0;
     z-index: 100;
     background-color: #c3195d;
+
+    min-width: 700px;
+
 }
+
+#projectForm{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-size: 1.2rem;
+}
+
+
 
 #content{
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     justify-items: center;
     gap: 5%;
-    
-
     
 }
 
@@ -34,15 +46,43 @@ body{
 }
 
 
-
 .projectNameDiv{
    grid-column: 2/3;
   
    background-color:  #680747;
+   min-width: 650px;
    
+}
+
+.projectHeadline{
+    /* width: 100%; */
+    display: flex;
+    justify-content: space-between;
+    min-height: 3rem;
+    align-items: center;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.projectButtons{
+    display: flex;
+    gap: 10px;
 }
 
 .taskDiv{
     background-color: #c3195d;
 }
+
+.taskOptions{
+    display: flex;
+    gap: 10px;
+
+    padding: 10px;
+    /* height: clamp(30px, 0.5rem, 4rem); */
+}
+
+.taskOptions > *{
+    max-height: 2rem;
+}
+
 
