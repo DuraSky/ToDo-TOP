@@ -136,11 +136,13 @@ function displayProject(projectInstance) {
         currentTasksDiv.innerHTML = `
             <div class="taskParaDiv"><p>Task name: <b>${task.description}</b></p>
             <p>Priority: <b>${task.priority}</b></p>
-            <p>It is due till: <b>${task.dueDate}</b></p></div>`;
+            <p>Due: <b>${task.dueDate}</b></p></div>`;
                 
         const completeButton = addCompleteButton(projectInstance,getTaskDivId, currentTasksDiv);
         const deleteButton = addDeleteButton(projectInstance, getTaskDivId, currentTasksDiv, taskDiv);
         const editButton = addEditButton(projectInstance, getTaskDivId, currentTasksDiv, isTaskCompleted, taskDiv);
+
+        
 
         taskDiv.appendChild(currentTasksDiv);
         currentTasksDiv.appendChild(taskButtonDiv);

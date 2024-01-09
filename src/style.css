@@ -19,7 +19,9 @@ body{
     background-color: #c3195d;
 
     min-width: 700px;
-
+    box-shadow: 0px 10px 15px 9px rgba(0,0,0,0.1);
+    border-bottom-left-radius:  5px;
+    border-bottom-right-radius: 5px;
 }
 
 #projectForm{
@@ -31,19 +33,56 @@ body{
     font-size: 1.2rem;
 }
 
+#projectForm > input{
+    font-size: 1rem;
+}
+
+#projectForm > button{
+    background:  #680747;
+    border: 1px solid #680747;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 20px;
+    outline: 0;
+    padding: 6px 7px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle; 
+
+}
+
+#projectForm > input{
+    background-color: #680747;
+    color: white;
+    border-radius: 5px;
+}
+
+#projectForm > button:hover{
+    background-color: initial;
+  }
 
 
 #content{
+    padding-top: 10px;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     justify-items: center;
-    gap: 5%;
+    gap: 3%;
     
 }
 
-#content .projectNameDiv:first-child{
-    margin-top: 3%;
-}
 
 
 .projectNameDiv{
@@ -51,7 +90,51 @@ body{
   
    background-color:  #680747;
    min-width: 650px;
-   
+
+    height: 100%;
+
+    border-radius: 15px;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+    /* overflow: hidden; */
+  
+}
+
+
+
+
+.projectNameDiv:hover{
+    transform: scale(1.1);
+    overflow: visible;
+    transition: transform 0.3s;
+} 
+
+.projectButtons >button{
+    background: #c3195d;
+    border: 1px solid #c3195d;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 20px;
+    outline: 0;
+    padding: 6px 7px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle; 
+}
+
+.projectButtons >button:hover{
+  background-color: initial;
 }
 
 .projectHeadline{
@@ -64,6 +147,8 @@ body{
     padding-right: 1%;
 }
 
+
+
 .projectButtons{
     display: flex;
     gap: 10px;
@@ -71,18 +156,117 @@ body{
 
 .taskDiv{
     background-color: #c3195d;
+    border-bottom-left-radius:  15px;
+    border-bottom-right-radius: 15px;
 }
+
+.currentTasks{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
 
 .taskOptions{
     display: flex;
     gap: 10px;
 
     padding: 10px;
-    /* height: clamp(30px, 0.5rem, 4rem); */
+    max-height: 2rem;
+    align-items: center;
+    /* border: solid 1px; */
+    box-shadow: 0px 10px 15px 9px rgba(0,0,0,0.1);    /* height: clamp(30px, 0.5rem, 4rem); */
 }
 
 .taskOptions > *{
     max-height: 2rem;
 }
 
+.taskOptions > input, select{
+    background-color: #680747;
+    color: white;
+    border-radius: 5px;
+}
+
+
+.taskOptions > button{
+    background:  #680747;
+    border: 1px solid #680747;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 20px;
+    outline: 0;
+    padding: 6px 7px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle; 
+}
+
+.taskOptions > button:hover{
+    background-color: initial;
+  }
+
+.taskParaDiv{
+    margin-top: 10px;
+    display: flex;
+    gap: 2%;
+    padding: 5px;
+    flex-direction: column;
+    flex-grow: 1; 
+
+}
+
+.taskButtonDiv{
+    display: flex;
+    gap: 2%;
+    padding: 10px;
+}
+
+.taskButtonDiv > button{
+    background:  #680747;
+    border: 1px solid #680747;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 20px;
+    outline: 0;
+    padding: 6px 7px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle; 
+}
+
+.taskButtonDiv > button:hover{
+    background-color: initial;
+  }
+
+  .complete {
+    background-color: rgb(34, 128, 34);
+    transition: background-color 0.3s ease-in; /* Adjust the duration and timing function as needed */
+}
 

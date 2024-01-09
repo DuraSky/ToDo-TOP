@@ -63,8 +63,8 @@ export function addEditButton(createNewProject, getTaskDivId, currentTasksDiv, i
 
                 currentTasksDiv.innerHTML = 
                 `<div class="taskParaDiv"><p>Task name: <b>${createNewProject.getDescription()[i]}</b></p>
-                <p>priority: <b>${createNewProject.getPrio()[i]}</b></p>
-                <p>it is due till <b>${createNewProject.getDueDate()[i]}</b></p></div>`;    
+                <p>Priority: <b>${createNewProject.getPrio()[i]}</b></p>
+                <p>Due: <b>${createNewProject.getDueDate()[i]}</b></p></div>`;    
             }
         }
 

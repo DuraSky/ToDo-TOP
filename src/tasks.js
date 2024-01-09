@@ -45,7 +45,7 @@ export function createTask(createNewProject){
     
     const addLabelPrio = document.createElement("label");
     addLabelPrio.setAttribute("for", "setPrio");
-    addLabelPrio.innerHTML = "Add Priority";
+    addLabelPrio.innerHTML = "Priority: ";
     
     //DOM for adding due date on tasks
     const addTaskDueDateForm = document.createElement("input");
@@ -105,7 +105,7 @@ export function createTask(createNewProject){
         currentTasksDiv.innerHTML = 
             `<div class="taskParaDiv"><p>Task name: <b>${createNewProject.getDescription()[createNewProject.task.length -1]}</b></p>
             <p>Priority: <b>${createNewProject.getPrio()[createNewProject.task.length -1]}</b></p>
-            <p>It is due till: <b>${createNewProject.getDueDate()[createNewProject.task.length -1]}</b></p></div>`;
+            <p>Due: <b>${createNewProject.getDueDate()[createNewProject.task.length -1]}</b></p></div>`;
 
         
         const taskButtonDiv = document.createElement("div");
@@ -123,6 +123,8 @@ export function createTask(createNewProject){
         taskButtonDiv.appendChild(editButton);
         taskButtonDiv.appendChild(deleteButton);
 })
+
+    //const hrLine = document.createElement("hr");
  
     taskOptionsDiv.appendChild(addLabel);
     taskOptionsDiv.appendChild(addTaskForm);
@@ -132,6 +134,7 @@ export function createTask(createNewProject){
     taskOptionsDiv.appendChild(addTaskDueDateForm);
     taskOptionsDiv.appendChild(addButton);
     taskDiv.appendChild(taskOptionsDiv);
+    //taskDiv.appendChild(hrLine)
 
     return taskDiv;
 }
